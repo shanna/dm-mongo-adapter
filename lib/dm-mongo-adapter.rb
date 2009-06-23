@@ -112,7 +112,7 @@ module DataMapper
             end
 
             operator = case comparison
-              when EqualToComparison              then '=='
+              when EqualToComparison              then '==='
               when GreaterThanComparison          then '>'
               when LessThanComparison             then '<'
               when GreaterThanOrEqualToComparison then '>='
