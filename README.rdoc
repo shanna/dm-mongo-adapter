@@ -1,6 +1,67 @@
-= dm-mongo-adapter
+= DataMapper Mongo Adapter
 
-Description goes here.
+* http://github.com/shanna/dm-mongo-adapter/tree/master
+
+== WARNING
+
+This adapter is shit, I'm just trying to make a start. Steal what you can or write something better :)
+
+== TODO
+
+=== Embedded Objects
+
+I have no idea. I'd guess a DM::Relationship#has hack or custom DM::Types that behave like a table-less resource?
+
+=== Associations
+
+The documentation for Mongo is confusing so I'm not sure if DBRef's are deprecated or not.
+
+=== Query Performance
+
+At the moment a single Javascript $where clause is built. Your indexes probably won't be used. A mixture of Hash
+conditions plus a Javascript $where clause when required would be much better.
+
+== Dependencies
+
+Ruby::
+* dm-core ~> 0.10.0
+* mongo   ~> 0.8
+
+== Install
+
+* Via gem:
+
+    gem install shanna-dm-mongo-adapter -s http://gems.github.com
+
+* Via git:
+
+    git clone git://github.com/shanna/dm-mongo-adapter.git
+    rake install
+
+== Synopsis
+
+  DataMapper.setup(:default,
+    :adapter  => 'mongo',
+    :database => 'my_mongo_db',
+  )
+
+  # Define your DataMapper resource and start saving:
+  class User
+    include DataMapper::Resource
+    property :id, Serial, :field => '_id'
+    property :name, String
+    property :age, Integer
+  end
+
+  # No need to (auto_)migrate!
+  User.create(:name => 'Fred', :age => '25')
+
+  # Conditions:
+  users = User.all(:age.gte => 10, :limit => 20, :order => [:age.asc])
+
+== Contributing
+
+Go nuts. Just send me a pull request (github or otherwise) when you are happy with your code.
 
 == Copyright
 
