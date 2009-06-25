@@ -6,23 +6,23 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Shane Hanna"]
-  s.date = %q{2009-06-24}
+  s.date = %q{2009-06-26}
   s.email = %q{shane.hanna@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE",
-     "README.rdoc"
+    "README.rdoc"
   ]
   s.files = [
-    ".gitignore",
-     "LICENSE",
-     "README.rdoc",
-     "Rakefile",
-     "VERSION.yml",
-     "dm-mongo-adapter.gemspec",
-     "lib/dm-mongo-adapter.rb",
-     "spec/adapter_spec.rb",
-     "spec/spec.opts",
-     "spec/spec_helper.rb"
+    "LICENSE",
+    "README.rdoc",
+    "Rakefile",
+    "VERSION.yml",
+    "lib/dm-mongo-adapter.rb",
+    "lib/dm-mongo-adapter/adapter.rb",
+    "lib/dm-mongo-adapter/query.rb",
+    "spec/adapter_spec.rb",
+    "spec/spec.opts",
+    "spec/spec_helper.rb"
   ]
   s.homepage = %q{http://github.com/shanna/dm-mongo-adapter}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -31,7 +31,7 @@ Gem::Specification.new do |s|
   s.summary = %q{Mongo DataMapper Adapter.}
   s.test_files = [
     "spec/adapter_spec.rb",
-     "spec/spec_helper.rb"
+    "spec/spec_helper.rb"
   ]
 
   if s.respond_to? :specification_version then
@@ -40,13 +40,13 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<dm-core>, ["~> 0.10.0"])
-      s.add_runtime_dependency(%q<mongo>, ["~> 0.8"])
+      s.add_runtime_dependency(%q<mongodb-mongo>, ["~> 0.8"])
     else
       s.add_dependency(%q<dm-core>, ["~> 0.10.0"])
-      s.add_dependency(%q<mongo>, ["~> 0.8"])
+      s.add_dependency(%q<mongodb-mongo>, ["~> 0.8"])
     end
   else
     s.add_dependency(%q<dm-core>, ["~> 0.10.0"])
-    s.add_dependency(%q<mongo>, ["~> 0.8"])
+    s.add_dependency(%q<mongodb-mongo>, ["~> 0.8"])
   end
 end
