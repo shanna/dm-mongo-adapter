@@ -10,7 +10,7 @@ begin
     gem.homepage = "http://github.com/shanna/dm-mongo-adapter"
     gem.authors  = ['Shane Hanna']
     gem.add_dependency 'dm-core', '~> 0.10.0'
-    gem.add_dependency 'mongo', '~> 0.8'
+    gem.add_dependency 'mongodb-mongo', '~> 0.8' # github only
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
 rescue LoadError
