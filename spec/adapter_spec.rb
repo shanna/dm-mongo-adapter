@@ -1,8 +1,9 @@
 require File.join(File.dirname(__FILE__), 'spec_helper')
-require 'dm-core/spec/adapter_shared_spec'
+require File.join(File.dirname(__FILE__), 'shared', 'adapter_shared_spec')
 
 describe DataMapper::Adapters::MongoAdapter do
   before :all do
+    # DataMapper::Logger.new(STDOUT, :debug)
     @adapter = DataMapper.setup(:default,
       :adapter  => 'mongo',
       :hostname => 'localhost',
