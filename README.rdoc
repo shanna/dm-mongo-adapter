@@ -44,7 +44,7 @@ Ruby::
   # Define your DataMapper resource and start saving:
   class User
     include DataMapper::Resource
-    property :id, Serial, :field => '_id'
+    property :id, DataMapper::Mongo::Types::ObjectID, :field => '_id', :key => true
     property :name, String
     property :age, Integer
   end
