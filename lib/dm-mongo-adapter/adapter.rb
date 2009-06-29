@@ -4,7 +4,7 @@ module DataMapper
       def create(resources)
         resources.map do |resource|
           with_connection(resource.model) do |connection|
-            connection.insert(resource.attributes(:field))
+            connection.insert(resource.attributes(:field).to_mash.symbolize_keys)
           end
         end.size
       end
@@ -18,7 +18,7 @@ module DataMapper
       def update(attributes, collection)
         with_connection(collection.query.model) do |connection|
           collection.each do |resource|
-            connection.modify(key(resource), attributes_as_fields(attributes))
+            connection.modify(key(resource), resource.attributes(:field).merge(attributes_as_fields(attributes)))
           end.size
         end
       end
@@ -33,7 +33,11 @@ module DataMapper
 
       private
         def key(resource)
-          attributes_as_fields(resource.model.key(name))
+          resource.model.key(name).map(&:field).zip(resource.key).to_mash.symbolize_keys
+        end
+
+        def attributes_as_fields(attributes)
+          super.to_mash.symbolize_keys
         end
 
         #--
