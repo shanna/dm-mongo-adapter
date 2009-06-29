@@ -35,7 +35,12 @@ module DataMapper
         end
 
         def self.dump(value, property)
-          value # .to_mongo
+          case value
+            when Array    then value.map{|v| dump(v, property)}
+            when Hash     then value.map{|k, v| [k.to_sym, dump(v, property)]}
+            when Resource then dump(value.attributes(:field), property)
+            else value
+          end
         end
       end # EmbeddedResource
     end # Types

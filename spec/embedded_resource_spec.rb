@@ -2,6 +2,16 @@ require File.join(File.dirname(__FILE__), 'spec_helper')
 
 describe DataMapper::Mongo::EmbeddedResource do
   before :all do
+    # DataMapper::Logger.new(STDOUT, :debug)
+    @adapter = DataMapper.setup(:default,
+      :adapter  => 'mongo',
+      :hostname => 'localhost',
+      :database => 'dm-mongo-test'
+    )
+
+    db = XGen::Mongo::Driver::Mongo.new.db('dm-mongo-test')
+    db.drop_collection('users')
+
     module ::Stuff
       class Address
         include DataMapper::Mongo::EmbeddedResource
@@ -28,6 +38,8 @@ describe DataMapper::Mongo::EmbeddedResource do
     @borrowed_model = ::Stuff::Borrowed
   end
 
+  # TODO: Yeah not a real spec. Just me playing with stuff as I build it.
+
   it 'should create new embedded resource instance' do
     @user_model.new.address.should be_kind_of(@address_model)
   end
@@ -39,6 +51,14 @@ describe DataMapper::Mongo::EmbeddedResource do
     user.borrowed << @borrowed_model.new(:thing => 'banana')
     user.borrowed << @borrowed_model.new(:thing => 'portal gun')
     user.borrowed.size.should == 2
+  end
+
+  it 'should let me save resource' do
+    user = @user_model.new
+    user.address.number = 10
+    user.address.street = 'blah'
+    $stderr.puts user.attributes(:field).inspect
+    # user.save
   end
 
   it 'should not have class methods all, first, save etc.'
